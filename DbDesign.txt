@@ -1,0 +1,95 @@
+Link:
+https://dbdiagram.io/d
+
+Code:
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+Table buku {
+  id int [pk, increment] // auto-increment
+  kode varchar
+  judul_buku varchar
+  harga_sewa double
+  stok int
+  gambar varchar
+  pengarang varchar
+  penerbit varchar
+  tahun int
+  tempat varchar
+  status enum
+}
+
+Table member {
+  id int [pk, increment]
+  kode varchar
+  kategori_id [foreign]
+  nama varchar
+  foto varchar
+  alamat varchar
+  hp varchar
+  email varchar
+  status enum
+ }
+ 
+ Table kategori {
+   id int [pk, increment]
+   nama varchar
+   status enum
+ }
+ 
+ Table pinjam {
+   id int [pk, increment]
+   kode varchar
+   member_id [foreign]
+   tgl date
+   duedate date
+   total double
+   user_id [foreign]
+ }
+ 
+ Table kembali {
+   id int [pk, increment]
+   pinjam_id [foreign]
+   tgl date
+   denda double
+   bayar double
+   user_id [foreign]
+ }
+ 
+ Table pinjam_detail {
+   id int [pk, increment]
+   pinjam_id [foreign]
+   buku_id [foreign]
+   harga_sewa double
+   qty int
+ }
+ 
+ Table pinjam_cart {
+   id int [pk, increment]
+   user_id [foreign]
+   buku_id [foreign]
+   qty int
+ }
+ 
+ Table users {
+   id int [pk, increment]
+   name varchar
+   email varchar
+   email_verified_at timestamp
+   password varchar
+ }
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+Ref: member.kategori_id > kategori.id
+Ref: kembali.id - pinjam.id
+Ref: pinjam.member_id - member.id
+Ref: pinjam.user_id - users.id
+Ref: pinjam_cart.buku_id < buku.id
+Ref: pinjam_cart.user_id < users.id
+Ref: kembali.pinjam_id - pinjam.id
+Ref: kembali.user_id > users.id
+Ref: pinjam_detail.pinjam_id > pinjam.id
+Ref: pinjam_detail.buku_id > buku.id
