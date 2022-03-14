@@ -1,0 +1,54 @@
+<label for="c" name="countCart" style="display:none">{{ $count = count($cart) }}</label>
+                            @for($i=0;$i<$count;$i++)
+                            <tr id="tr_{{$cart[$i]->id}}" name="cartData" index="{{$i}}">
+                                <td>
+                                    <input type="checkbox" class="custom-checkbox cekbox" data-id="{{$cart[$i]->id}}">
+                                </td>
+                                <td>
+                                    {{ $cart[$i]->buku->kode }}
+                                    <label for="a" name="idCart" style="display:none">{{ $cart[$i]->id }}</label>
+                                    <label for="b" name="idBuku" style="display:none">{{ $cart[$i]->buku_id }}</label>
+                                </td>
+                                <td>
+                                    {{ $cart[$i]->buku->judul_buku }}
+                                </td>
+                                <td name="harga">{{ $cart[$i]->buku->harga_sewa }}</td>
+                                <td name="stok">{{ $cart[$i]->buku->stok }}</td>
+                                <td>
+                                    <input type="number" class="qty" value="{{ $cart[$i]->qty }}" style="width:50px" min=1 max=10>
+                                </td>
+                                <td name="subtotal"></td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endfor
+
+@foreach($cart as $c)
+                            <tr id="tr_{{$c->id}}" name="cartData" index="">
+                                <td>
+                                    <input type="checkbox" class="custom-checkbox cekbox" data-id="{{$c->id}}">
+                                </td>
+                                <td>
+                                    {{ $c->buku->kode }}
+                                    <label for="a" name="idCart" style="display:none">{{ $c->id }}</label>
+                                    <label for="b" name="idBuku" style="display:none">{{ $c->buku_id }}</label>
+                                </td>
+                                <td>
+                                    {{ $c->buku->judul_buku }}
+                                </td>
+                                <td name="harga">{{ $c->buku->harga_sewa }}</td>
+                                <td name="stok">{{ $c->buku->stok }}</td>
+                                <td>
+                                    <input type="number" class="qty" value="{{ $c->qty }}" style="width:50px" min=1 max=10>
+                                </td>
+                                <td name="subtotal"></td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
